@@ -1,0 +1,34 @@
+﻿
+
+
+    <section id="js2">
+        <div class="col-xs-3">
+            </div>
+            <div class="col-xs-3">
+                <p><b>Calculate the Factorial</b></p>
+                <input type="number" id="input"><br>
+                <button onclick="getFactorial()">Calculate</button><br>
+            </div>
+
+            <div class="col-xs-3">
+
+                <p>The factorial is <output id="output"></output></p>
+            </div>
+        <div class="col-xs-3">
+            </div><br />
+</section>
+
+
+@section Scripts {
+<script type="text/javascript">
+
+                function getFactorial() {
+                    var x = $('#input').val();
+                    for (i = x-1; i > 0; i--){
+                        x = x * i;
+                    }
+                    $('#output').val(x);
+                    }
+
+</script>
+}
