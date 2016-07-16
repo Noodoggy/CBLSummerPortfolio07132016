@@ -333,7 +333,7 @@ hr{
 	height:100%;
 	min-height:860px;
 	margin-bottom:-64px;
-	background: url('../images/header-bg.png') no-repeat;
+	background: url('../images/headerbg.png') no-repeat;
 	background-attachment: fixed;
 	background-size: 100%;
 	background-size: cover;
@@ -540,7 +540,7 @@ hr{
 -----------------------*/
 
 #about{
-	background:url(../images/about.jpg) no-repeat;
+	background:url(../images/aboutbg.jpg) no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
 }
@@ -882,7 +882,7 @@ hr{
 -----------------------*/
 
 #project-viewer{
-	background: url('../images/header-bg.png') no-repeat;
+	background: url('../images/headerbg.png') no-repeat;
 	background-attachment: fixed;
 	background-size: 100%;
 	background-size: cover;

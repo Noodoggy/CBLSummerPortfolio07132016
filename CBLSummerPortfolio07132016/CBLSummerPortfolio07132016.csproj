@@ -242,6 +242,8 @@
     <Content Include="assets\images\featured-2.png" />
     <Content Include="assets\images\header-bg.png" />
     <Content Include="assets\images\header-img.png" />
+    <Content Include="assets\images\header.png" />
+    <Content Include="assets\images\headerbg.png" />
     <Content Include="assets\images\logo-bw.png" />
     <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\map.jpg" />
@@ -249,6 +251,8 @@
     <Content Include="assets\images\preloader.gif" />
     <Content Include="assets\images\profile-img.jpg" />
     <Content Include="assets\images\project-viewer-bg.png" />
+    <Content Include="assets\images\aboutbg.jpg" />
+    <Content Include="assets\images\projects\header.png" />
     <Content Include="assets\images\projects\slide-2-1.jpg" />
     <Content Include="assets\images\projects\slide-2-2.jpg" />
     <Content Include="assets\images\projects\slide-2-3.jpg" />
@@ -291,9 +295,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Home\assets\images\header-img.png" />
     <Content Include="Home\assets\css\prettify.css" />
+    <Content Include="Home\assets\images\header.png" />
     <Content Include="images-project.html" />
-    <Content Include="index.html" />
     <Content Include="JS2.html" />
     <Content Include="JS4.html" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
@@ -336,7 +341,6 @@
     <Content Include="Home\assets\images\featured-1.png" />
     <Content Include="Home\assets\images\featured-2.png" />
     <Content Include="Home\assets\images\header-bg.png" />
-    <Content Include="Home\assets\images\header-img.png" />
     <Content Include="Home\assets\images\logo-bw.png" />
     <Content Include="Home\assets\images\logo.png" />
     <Content Include="Home\assets\images\map.jpg" />
