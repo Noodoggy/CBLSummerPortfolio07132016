@@ -1,47 +1,48 @@
 ﻿<!DOCTYPE html>
 <html lang="en-US" class="no-js">
 <head>
-<!-- ==============================================
-        Title and Meta Tags
-        =============================================== -->
-<meta charset="utf-8">
-<title>D-cubed | Modern Personal Portfolio</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<!-- ==============================================
-Favicons
-=============================================== -->
-<link rel="shortcut icon" href="assets/images/favicon.ico">
-<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="assets/images/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="assets/images/apple-touch-icon-114x114.png">
+    <!-- ==============================================
+            Title and Meta Tags
+            =============================================== -->
+    <meta charset="utf-8">
+    <title>D-cubed | Modern Personal Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- ==============================================
+    Favicons
+    =============================================== -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/images/apple-touch-icon-114x114.png">
 
-<!-- ==============================================
-CSS
-=============================================== -->
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/flexslider.css">
-<link rel="stylesheet" href="assets/css/font-awesome.css">
-<link rel="stylesheet" href="assets/css/styles-1.css">
+    <!-- ==============================================
+    CSS
+    =============================================== -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/flexslider.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/css/styles-1.css">
 
-<!-- ==============================================
-Fonts
-=============================================== -->
-<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,600,700' rel='stylesheet' type='text/css'>
+    <!-- ==============================================
+    Fonts
+    =============================================== -->
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,600,700' rel='stylesheet' type='text/css'>
 
 
-<!-- ==============================================
-JS
-=============================================== -->
-<!--[if lt IE 9]>
-    <script src="assets/js/libs/respond.min.js"></script>
-<![endif]-->
+    <!-- ==============================================
+    JS
+    =============================================== -->
+    <!--[if lt IE 9]>
+        <script src="assets/js/libs/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  
+    <script type="text/javascript" src="assets/js/libs/modernizr.min.js"></script>
 
-<script type="text/javascript" src="assets/js/libs/modernizr.min.js"></script>
-
-	</head>
+</head>
 <body>
-    <section id="js4">
+    <section id="jscode">
         <div class="col-xs-6">
             <p><b>Find out if your word is a Palindrome!</b></p>
             <input type="text" id="input"><br>
@@ -54,26 +55,64 @@ JS
         </div>
 
         <script>
-            var isPalindrome = function () {
+            function isPalindrome() {
                 var word = $('#input').val()
-                var palindrome = new Array();
-                var j = 0;
-                var i = 0;
-                var l = word.length;
-                for (i = l - 1; i >= 0; i--) {
-                    palindrome[j] = word[i];
-                    j++;
+                var wordR = word.split('').reverse().join('');
+
+                if (word === wordR) {
+                    $('#output').append("<p>'" + word + "' is a palindrome!</p>");
                 }
-                for (i = 0; i < l; i++) {
-                    if (palindrome[i] != word[i] && i == l - 1) {
-                        var x = "Sorry...." + word + " is NOT a palindrome.";
-                    } else if (i == l - 1)
-                        var x = "Congrats! " + word + " is a palindrome!";
-                }
-                $('#output').val(x);
+
+                else {
+                    $('#output').append("<p>'" + word + "' is not a palindrome.</p>");
+                };
             }
+
+           
         </script>
-        </section>
-  </body>
+    </section>
+
+<div class="container">
+    
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">See Code</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content" onload="prettyPrint()">
+                <div class="modal-header">
+                    <!--<button type="button"  data-dismiss="modal">&times;</button>--> <!--class="close"-->
+                    <h4 class="modal-title">Palindrome Code</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <pre id="pretag1" class="prettyprint"></pre>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+        $("#pretag1").html($("#jscode").html().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'));
+</script>
+
+
+
+
+    </body>
+
+
 
 </html>
+

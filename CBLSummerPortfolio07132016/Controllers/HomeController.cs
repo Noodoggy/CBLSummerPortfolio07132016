@@ -56,5 +56,11 @@ namespace CBLSummerPortfolio07132016.Controllers
 
             return View();
         }
+        public ActionResult ComingSoon()
+        {
+            ViewBag.Message = "ComingSoon";
+
+            return View();
         }
+    }
 }
