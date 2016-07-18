@@ -1,55 +1,9 @@
 ﻿
 
-<!DOCTYPE html>
-<html lang="en-US" class="no-js">
-<head>
-<!-- ==============================================
-        Title and Meta Tags
-        =============================================== -->
-<meta charset="utf-8">
-<title>D-cubed | Modern Personal Portfolio</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<!-- ==============================================
-Favicons
-=============================================== -->
-<link rel="shortcut icon" href="assets/images/favicon.ico">
-<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="assets/images/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="assets/images/apple-touch-icon-114x114.png">
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
-<!-- ==============================================
-CSS
-=============================================== -->
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/flexslider.css">
-<link rel="stylesheet" href="assets/css/font-awesome.css">
-<link rel="stylesheet" href="assets/css/styles-1.css">
-<link rel="stylesheet" href="assets/css/prettify.css" />
-
-<!-- ==============================================
-Fonts
-=============================================== -->
-<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,600,700' rel='stylesheet' type='text/css'>
-
-
-<!-- ==============================================
-JS
-=============================================== -->
-<!--[if lt IE 9]>
-    <script src="assets/js/libs/respond.min.js"></script>
-<![endif]-->
-    <!--<script type="text/javascript" src="prettify.js"></script>-->
-    <!--<script src="assets/css/prettify.js"></script>-->
-
-    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-<script type="text/javascript" src="assets/js/libs/modernizr.min.js"></script>
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
-
-	</head>
 <body>
- 
+
 
     <section id="jscode">
 
@@ -57,7 +11,7 @@ JS
             <div class="col-xs-12">
                 <p><b>Enter 5 numbers and click on the operation you wish to perform:</b></p>
 
-                
+
                 <div class="row" id="inbox">
                     <!-- <div class="col-xs-12"> -->
                     <!-- <div class="col-xs-2"> -->
@@ -77,7 +31,7 @@ JS
                     <!-- </div> -->
                     <!-- </div> -->
                 </div>
-                
+
                 <div class="row">
                     <div class="col-xs-12">
 
@@ -87,24 +41,24 @@ JS
                         <!-- <div class="col-xs-1">
                         </div> -->
                         <!-- <div class="col-xs-2"> -->
-                        <button  onclick="leastNumber()">Find the Least Number</button>
-                        
+                        <button onclick="leastNumber()">Find the Least Number</button>
+
                         <!-- </div> -->
                         <!-- <div class="col-xs-2"> -->
-                        <button  onclick="greatestNumber()">Find the Greatest Number</button>
-                        
+                        <button onclick="greatestNumber()">Find the Greatest Number</button>
+
                         <!-- </div> -->
                         <!-- <div class="col-xs-2"> -->
-                        <button  onclick="meanNumber()">Find the Mean</button>
-                       
+                        <button onclick="meanNumber()">Find the Mean</button>
+
                         <!-- </div> -->
                         <!-- <div class="col-xs-2"> -->
-                        <button  onclick="sumNumber()">Sum the Numbers</button>
-                       
+                        <button onclick="sumNumber()">Sum the Numbers</button>
+
                         <!-- </div> -->
                         <!-- <div class="col-xs-2"> -->
-                        <button  onclick="productNumber()">Product of the Numbers</button>
-                        
+                        <button onclick="productNumber()">Product of the Numbers</button>
+
                         <!-- </div> -->
                         <!-- <div class="col-xs-1">
                         </div> -->
@@ -113,11 +67,11 @@ JS
                     <!-- <input type="text" id="output" typ> -->
                     <!-- <p>The factorial is <output id="output"></output></p> -->
                 </div>
-                
-                </div>
+
             </div>
+        </div>
         <script>
-            
+
             function leastNumber() {
                 var num1 = $('#num1').val();
                 var num2 = $('#num2').val();
@@ -153,7 +107,7 @@ JS
                 array[2] = num3;
                 array[3] = num4;
                 array[4] = num5;
-                
+
                 var max = array[0];
                 for (i = 0; i < array.length; i++) {
                     if (+max < +array[i]) {
@@ -179,7 +133,7 @@ JS
                 var sum = array[0];
                 for (i = 1; i < array.length; i++) {
                     sum = +sum + +array[i];
-                    
+
                 }
                 mean = sum / array.length;
                 $('#output').val("The mean of the numbers is " + mean);
@@ -225,7 +179,7 @@ JS
                     product *= array[i];
                 }
                 $('#output').val("The product of the numbers is " + product);
-            };        
+            };
 
         </script>
 
@@ -235,38 +189,38 @@ JS
 
 
 
-        <div class="container">
-            
-            <!-- Trigger the modal with a button---> 
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">See Code</button>
+    <div class="container">
 
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" role="dialog">
-                <script type="text/javascript">
-        window.onload = (function () { prettyPrint(); });
-                </script>
-                <div class="modal-dialog">
+        <!-- Trigger the modal with a button--->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">See Code</button>
 
-                    <!-- Modal content-->
-                    <div class="modal-content" onload="prettyPrint()">
-                        <div class="modal-header">
-                           
-                            <h4 class="modal-title">Numerical Operations Code</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>
-                                <pre id="pretag1" class="prettyprint"></pre>
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                            
-                        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <script type="text/javascript">
+                window.onload = (function () { prettyPrint(); });
+            </script>
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content" onload="prettyPrint()">
+                    <div class="modal-header">
+
+                        <h4 class="modal-title">Numerical Operations Code</h4>
                     </div>
+                    <div class="modal-body">
+                        <p>
+                            <pre id="pretag1" class="prettyprint"></pre>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
 
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
+
+    </div>
 
     <script>
         $("#pretag1").html($("#jscode").html().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'));
@@ -275,8 +229,8 @@ JS
 
 
 
-    </body>
+</body>
 
 
 
-</html>
+

@@ -228,6 +228,10 @@
     <Content Include="assets\images\apple-touch-icon-72x72.png" />
     <Content Include="assets\images\apple-touch-icon.png" />
     <Content Include="assets\images\bars-bg.png" />
+    <Content Include="assets\images\chash.png" />
+    <Content Include="assets\images\HTML-logo.png" />
+    <Content Include="assets\images\jquery_logo.png" />
+    <Content Include="assets\images\mvc.png" />
     <Content Include="assets\images\mylogo-bw.png" />
     <Content Include="assets\images\mylogo.png" />
     <Content Include="assets\images\projects\car-finder.jpg" />
@@ -423,7 +427,6 @@
     <Content Include="Views\Home\PortfolioOriginal.cshtml" />
     <Content Include="Views\Shared\_NewLayout.cshtml" />
     <Content Include="Views\Home\Resume.cshtml" />
-    <Content Include="Views\Home\JS1.cshtml" />
     <Content Include="Views\Home\JS2.cshtml" />
     <Content Include="Views\Home\JS3.cshtml" />
     <Content Include="Views\Home\JS4.cshtml" />
