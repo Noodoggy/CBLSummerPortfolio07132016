@@ -1998,3 +1998,8 @@ hr{
     padding: 100px;
 }
 
+/*Added following to change bg to pic on skills/resume view*/
+
+.skills-bg {
+    background: url('../images/skills-bg.png') no-repeat;
+}
