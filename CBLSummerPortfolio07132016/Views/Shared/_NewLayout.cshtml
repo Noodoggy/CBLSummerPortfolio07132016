@@ -11,10 +11,10 @@
     <!-- ==============================================
     Favicons
     =============================================== -->
-    <link rel="shortcut icon" href="~/assets/images/favicon.ico">
-    <link rel="apple-touch-icon" href="~/assets/images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="~/assets/images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="~/assets/images/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" type="image/x-icon"  href="~/assets/images/Coder_Foundry_Logo.png">
+    <link rel="Coder_Foundry_Logo" href="~/assets/images/Coder_Foundry_Logo.png">
+    <link rel="Coder_Foundry_Logo" sizes="72x72" href="~/assets/images/Coder_Foundry_Logo_72X72.png">
+    <link rel="Coder_Foundry_Logo" sizes="114x114" href="~/assets/images/Coder_Foundry_Logo_114X114.png">
 
     <!-- ==============================================
     CSS
@@ -60,23 +60,26 @@
                 </button>
 
                 <!-- ======= LOGO ========-->
-                <a href="@Url.Action("Index","Home")"><img src="~/assets/images/mylogo.png" alt="" /></a>
+                <a href="@Url.Action("Index", "Home")"><img src="~/assets/images/mylogo.png" alt="" /></a>
 
             </div>
 
             <div id="site-nav" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="@Url.Action("Resume","Home")"><i class="fa fa-cog"></i>Skills/Resume</a>
+                        <a href="@Url.Action("Index", "Blog")"><i class="fa fa-pencil-square-o"></i>Blog</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("About","Home")"><i class="fa fa-graduation-cap"></i>Profile</a>
+                        <a href="@Url.Action("Resume", "Home")"><i class="fa fa-cog"></i>Skills/Resume</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Portfolio","Home")"><i class="fa fa-briefcase"></i>Portfolio</a>
+                        <a href="@Url.Action("About", "Home")"><i class="fa fa-graduation-cap"></i>Profile</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Contact","Home")"><i class="fa fa-envelope"></i>Contact</a>
+                        <a href="@Url.Action("Portfolio", "Home")"><i class="fa fa-briefcase"></i>Portfolio</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Contact", "Home")"><i class="fa fa-envelope"></i>Contact</a>
                     </li>
                 </ul>
             </div><!--End navbar-collapse -->
@@ -90,6 +93,47 @@
             </div><!--End container -->
 
         </div><!--End main-nav -->
+
+    @{
+        var isHome = ViewContext.RouteData.Values["controller"].ToString().ToUpper() == "BLOG";
+        //var isIndex = ViewContext.RouteData.Values["action"].ToString().ToUpper() == "*";
+
+        if (isHome)
+        {
+
+            <div class="col-sm-2 nav navbar-nav" id="trends">
+                <ul>
+                    <li>This</li>
+                    <li>is</li>
+                    <li>a</li>
+                    <li>test</li>
+                    <li>of</li>
+                    <li>a</li>
+                    <li>sidebar</li>
+                    <li>on</li>
+                    <li>page</li>
+                </ul>
+                <p>
+                    @Html.Partial("_LoginPartial")
+                </p>
+                <p class="text-center">
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+                <p class="text-center">
+                    @if (User.IsInRole("Admin"))
+                {
+                        @Html.ActionLink("Administrator", "AdminBlogIndex")
+                    }
+                </p>
+               
+                
+                
+            </div>
+}
+        
+    }
+
+
     @RenderBody()
 
     <footer id="main-footer">
@@ -111,7 +155,7 @@
                         <nav>
 
                             <ul class="footer-nav">
-                                <li><a href="@Url.Action("ComingSoon","Home")">Blog</a></li>
+                                <li><a href="@Url.Action("Index","Blog")">Blog</a></li>
                                     @*<a href="http://cbenton-blog.azrewebsites.net/Blog/"><i class="fa fa-pencil-square-o"></i>Blog</a>*@
                                     @*uncomment above when blog is live*@
                                 
@@ -155,6 +199,7 @@
     <script src="~/assets/js/jquery.fitvids.js"></script>
     <script src="~/assets/js/contact.js"></script>
     <script src="~/assets/js/scripts.js"></script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
     @RenderSection("scripts", required: false)
     
     

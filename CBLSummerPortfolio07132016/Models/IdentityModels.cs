@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
+
 
 namespace CBLSummerPortfolio07132016.Models
 {
@@ -16,18 +18,30 @@ namespace CBLSummerPortfolio07132016.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string DisplayName { get; set; }
+        public ApplicationUser()
+        {
+            this.BlogComments = new HashSet<Comment>();
+        }
+        public virtual ICollection<Comment> BlogComments { get; set; }
+
     }
+
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
-
+         : base("DefaultConnection", throwIfV1Schema: false) { }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+        public DbSet<BlogPost> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
+
+
 }

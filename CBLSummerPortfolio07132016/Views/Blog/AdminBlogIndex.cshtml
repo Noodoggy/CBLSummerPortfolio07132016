@@ -1,0 +1,66 @@
+﻿
+@using X.PagedList
+
+
+
+
+
+
+
+@model PagedList<CBLSummerPortfolio07132016.Models.BlogPost>
+<div class="row">
+    <div class="col-sm-push-3">
+
+    </div>
+    <div class="col-sm-9">
+
+        @foreach (var item in Model)
+        {
+            var shortbody = "";
+            if (item.BodyText.Length >= 139)
+            {
+                shortbody = item.BodyText.Substring(0, 136) + "...";
+            }
+            else
+            {
+                shortbody = item.BodyText;
+            }
+            <h1>@Html.DisplayFor(modelItem => item.Title)</h1>
+            <p>
+                @if (item.MediaUrl != null)
+                {
+                    <img class="img-responsive" src="@Url.Content(item.MediaUrl)" alt="" />
+                }
+            </p>
+            <h3>@Html.Raw(shortbody)</h3>
+            <a href="../Blog/@Html.DisplayFor(modelItem => item.Slug)#comments">
+                <span style="font-size: 12px;">@item.Comments.Count</span>
+                <span style="font-size: 12px;"> comments</span>
+            </a>
+            <h3 id="right">@Html.ActionLink("Read the blog...", "Details", new { slug = item.Slug })</h3>
+                <h5><span class="glyphicon glyphicon-time"></span>@Html.DisplayFor(modelItem => item.Created.LocalDateTime)</h5>
+
+            if (item.Updated != null)
+            {
+                <h5>
+                    Updated at <span class="glyphicon glyphicon-time"></span>@Html.DisplayFor(modelItem => item.Updated)
+
+                </h5>
+
+
+            }
+        }
+    </div>
+</div>
+<div class="row">
+    <p>
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.(Model, page => Url.Action("BlogsList", new { page }))
+    </p>
+
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Administrator Blog View", "Index")
+    }
+
+</div>

@@ -726,7 +726,7 @@ hr{
 #twitter-slider .flex-control-nav {bottom: -90px;}
 #twitter-slider .flex-control-nav li {margin: 0 4px;}
 #twitter-slider .flex-control-paging li a {width:10px; height:10px; margin:2px 0;background: #fff;box-shadow:none; border: none; opacity: 1;}
-#twitter-slider .flex-control-paging li a:hover { }
+/*#twitter-slider .flex-control-paging li a:hover { }*/
 #twitter-slider .flex-control-paging li a.flex-active { width:14px; height:14px;background: transparent;border: 2px solid #fff;}
 
 /*-----------------------
@@ -952,7 +952,7 @@ hr{
 .project-slider .flex-control-nav {bottom: -50px;}
 .project-slider .flex-control-nav li {margin: 0 4px;}
 .project-slider .flex-control-paging li a {width:10px; height:10px; margin:2px 0;background: #00CCCB;box-shadow:none; border: none; opacity: 1;}
-.project-slider .flex-control-paging li a:hover { }
+/*.project-slider .flex-control-paging li a:hover { }*/
 .project-slider .flex-control-paging li a.flex-active { width:14px; height:14px;background: transparent;border: 2px solid #00CCCB;}
 
 
@@ -1387,8 +1387,10 @@ hr{
 ---- Footer Styles  ----
 ------------------------*/
 #main-footer{
-	padding:40px 0;
+	padding: 40px 0;
 	background: #fff;
+    margin-top: 140px;
+    
 }
 
 
@@ -1970,6 +1972,8 @@ hr{
 	#main-footer .logo-link img{
 		margin:0 auto 15px;
 	}
+
+
 /*the following are added css by cbl*/
 
 /*for copied modal snippet*/
@@ -2002,4 +2006,32 @@ hr{
 
 .skills-bg {
     background: url('../images/skills-bg.png') no-repeat;
+}
+
+.nav .navbar-nav .navbar-right li h1 {
+    padding-right: 100px;
+}
+
+/*added following to formate trends sidebar*/
+
+#trends {
+    position: fixed;
+	/*height:550px;
+    width: 400px;*/
+	right: 18%;
+    height: 75%;
+    top: 9.5%;
+	z-index: 1;
+	background-color: white;
+	color: gray;
+}
+
+#create-blog {
+    background-image: url('../images/headerbg.png');
+}
+
+#harddrive {
+    background: url('../images/Hard-Drive.gif') no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }

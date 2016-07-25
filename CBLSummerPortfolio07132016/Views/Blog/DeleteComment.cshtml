@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Delete this comment?";
+}
+<h2>Delete this Comment?</h2>
+@using (Html.BeginForm("EditComment", "BlogPosts", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+
+    <input type="hidden" name="BlogPostId" value="@Model.BlogPostId" />
+    @(Model.BodyText)
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="DeleteComment" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}

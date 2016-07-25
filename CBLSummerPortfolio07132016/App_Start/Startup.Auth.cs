@@ -26,7 +26,9 @@ namespace CBLSummerPortfolio07132016
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
+                //ReturnUrlParameter = "returnTo",      //code to maybe redirect(src = http://erlend.oftedal.no/blog/?blogid=55) 
                 Provider = new CookieAuthenticationProvider
+
                 {
                     // Enables the application to validate the security stamp when the user logs in.
                     // This is a security feature which is used when you change a password or add an external login to your account.  

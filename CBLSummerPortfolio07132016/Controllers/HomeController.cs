@@ -1,6 +1,9 @@
-﻿using System;
+﻿using CBLSummerPortfolio07132016.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -61,6 +64,29 @@ namespace CBLSummerPortfolio07132016.Controllers
             ViewBag.Message = "ComingSoon";
 
             return View();
+        }
+
+        public ActionResult Blog()
+        {
+            return View();
+        }
+
+        //Post Method
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Contact([Bind(Include = "Id, Name, Email, Subject, Message, Phone, MessageSent")] Contact contact)
+        {
+            contact.MessageSent = DateTime.Now;
+
+            var svc = new EmailService();
+            var msg = new IdentityMessage();
+            msg.Subject = "Contact From Azure.Net Web Site " + contact.Name + " re: " + contact.Subject;
+            msg.Body = contact.Message;
+            await svc.SendAsync(msg);
+
+            return View("Thanks");
+
+
         }
     }
 }
