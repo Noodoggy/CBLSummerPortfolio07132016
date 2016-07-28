@@ -1,6 +1,8 @@
 ﻿@{
     ViewBag.Title = "Delete this comment?";
 }
+<div id="deletecomment">
+
 <h2>Delete this Comment?</h2>
 @using (Html.BeginForm("EditComment", "BlogPosts", FormMethod.Post))
 {
@@ -21,3 +23,5 @@
         @Html.ActionLink("Back to List", "Index")
     </div>
 }
+
+</div>

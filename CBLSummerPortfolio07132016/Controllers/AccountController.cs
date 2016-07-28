@@ -12,6 +12,7 @@ using CBLSummerPortfolio07132016.Models;
 
 namespace CBLSummerPortfolio07132016.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class AccountController : Controller
     {
@@ -57,6 +58,10 @@ namespace CBLSummerPortfolio07132016.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+
+           
+          
+            returnUrl = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -72,6 +77,10 @@ namespace CBLSummerPortfolio07132016.Controllers
             {
                 return View(model);
             }
+            string decodeUrl = "";
+            if (!string.IsNullOrEmpty(returnUrl))
+                decodeUrl = Server.UrlDecode(returnUrl);
+
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -79,7 +88,7 @@ namespace CBLSummerPortfolio07132016.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToLocal(decodeUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

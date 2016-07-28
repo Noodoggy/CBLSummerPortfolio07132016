@@ -11,6 +11,7 @@ namespace CBLSummerPortfolio07132016.Controllers
 {
     public class HomeController : Controller
     {
+        [RequireHttps]
         public ActionResult Index()
         {
             return View();

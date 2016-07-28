@@ -10,22 +10,25 @@ using System.IO;
 using CBLSummerPortfolio07132016.Models;
 using X.PagedList;
 
+
 namespace CBLSummerPortfolio07132016.Controllers
 {
+   [RequireHttps]
 
-    
     public class BlogController : Controller
     {
+        
         private ApplicationDbContext db = new ApplicationDbContext();
 
 
         // GET: Blog
+       
         [Authorize(Roles = "Admin")]
         public ActionResult AdminBlogIndex(int? page)
         {
             int pageSize = 100;//the number of posts you want to display per page
             int pageNumber = (page ?? 1);
-            
+
             return View(db.Posts.OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize));
         }
         // Get: Blog
@@ -37,9 +40,9 @@ namespace CBLSummerPortfolio07132016.Controllers
             var qposts = db.Posts.AsQueryable();
             if (!string.IsNullOrWhiteSpace(query))
             {
-                qposts = qposts.Where(p => p.Title.Contains(query) || p.BodyText.Contains(query) || p.Comments.Any(c => c.BodyText.Contains(query) || c.Author.DisplayName.Contains(query)));
+                qposts = qposts.Where(p => p.Title.Contains(query) || p.BodyText.Contains(query) || p.Comments.Any(c => c.BodyText.Contains(query) || c.Author.DisplayName.Contains(query) || c.UpdateReason.Contains(query)));
             }
-            var posts = qposts.OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize);
+            var posts = qposts.Where(p => p.Published).OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize);
             return View(posts);
         }
 
@@ -58,8 +61,16 @@ namespace CBLSummerPortfolio07132016.Controllers
             }
             return View(blogPost);
         }
+        public ActionResult Latest()
 
+        {
+            var qposts = db.Posts.AsQueryable();//set as queryable
+            var posts = qposts.Where(p => p.Published).OrderByDescending(p => p.Created);//order by date
+            var slug = posts.FirstOrDefault();//use first one
+            return RedirectToAction("Details", new { slug = slug.Slug});
+        }
         // GET: Blog/Create
+
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
@@ -71,6 +82,7 @@ namespace CBLSummerPortfolio07132016.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "Admin")]
         [HttpPost]
+      
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Created,Updated,Title,Slug,BodyText,MediaUrl,Published")] BlogPost blogPost, HttpPostedFileBase image)
         {
@@ -93,8 +105,8 @@ namespace CBLSummerPortfolio07132016.Controllers
                 if (ImageUploadValidator.IsWebFriendlyImage(image))
                 {
                     var fileName = Path.GetFileName(image.FileName);
-                    image.SaveAs(Path.Combine(Server.MapPath("~/img/blog/"), fileName));
-                    blogPost.MediaUrl = "~/img/blog/" + fileName;
+                    image.SaveAs(Path.Combine(Server.MapPath("~/assets/images/blog/"), fileName));
+                    blogPost.MediaUrl = "~/assets/images/blog/" + fileName;
                 }
                 blogPost.Created = new DateTimeOffset(DateTime.Now);
                 blogPost.Slug = Slug;
@@ -106,6 +118,7 @@ namespace CBLSummerPortfolio07132016.Controllers
         }
 
         // GET: Blog/Edit/5
+        
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(string slug)
         {
@@ -125,6 +138,7 @@ namespace CBLSummerPortfolio07132016.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,Created,Updated,Title,Slug,BodyText,MediaUrl,Published")] BlogPost blogPost, HttpPostedFileBase image)
@@ -153,18 +167,20 @@ namespace CBLSummerPortfolio07132016.Controllers
                 if (ImageUploadValidator.IsWebFriendlyImage(image))
                 {
                     var fileName = Path.GetFileName(image.FileName);
-                    image.SaveAs(Path.Combine(Server.MapPath("~/img/blog/"), fileName));
-                    blogPost.MediaUrl = "~/img/blog/" + fileName;
+                    image.SaveAs(Path.Combine(Server.MapPath("~/assets/images/blog/"), fileName));
+                    blogPost.MediaUrl = "~/assets/images/blog/" + fileName;
                 }
-
+                //db.Entry(blogPost).State = EntityState.Modified;
                 blogPost.Updated = new DateTimeOffset(DateTime.Now);
                 blogPost.Slug = Slug;
 
 
                 db.Posts.Attach(blogPost);
-
+                db.Entry(blogPost).Property("Published").IsModified = true;
                 db.Entry(blogPost).Property("Title").IsModified = true;
-                db.Entry(blogPost).Property("Body").IsModified = true;
+                db.Entry(blogPost).Property("BodyText").IsModified = true;
+
+
 
                 if (blogPost.MediaUrl != null)
                 {
@@ -177,12 +193,13 @@ namespace CBLSummerPortfolio07132016.Controllers
 
                 //db.Entry(blogPost).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminBlogIndex");
             }
             return View(blogPost);
         }
 
         // GET: Blog/Delete/5
+        
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
@@ -199,6 +216,7 @@ namespace CBLSummerPortfolio07132016.Controllers
         }
 
         // POST: Blog/Delete/5
+        
         [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -207,7 +225,7 @@ namespace CBLSummerPortfolio07132016.Controllers
             BlogPost blogPost = db.Posts.Find(id);
             db.Posts.Remove(blogPost);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminBlogIndex");
         }
         protected override void Dispose(bool disposing)
         {
@@ -221,16 +239,17 @@ namespace CBLSummerPortfolio07132016.Controllers
 
 
 
-        //GET: Blog/Commment
-       [Authorize(Roles = "Admin")]
-        public ActionResult Comment()
-        {
-            return View();
-        }
+        // //GET: Blog/Commment
+        //[Authorize(Roles = "Admin")]
+        // public ActionResult Comment()
+        // {
+        //     return View();
+        // }
 
 
         //// POST: Blog/Comment
         [HttpPost]
+        
         public ActionResult Comment([Bind(Include = "Id,BlogPostId, BodyText")] Comment comment)
         {
 
@@ -249,6 +268,7 @@ namespace CBLSummerPortfolio07132016.Controllers
 
         // GET: Blog/Edit Comment
         [Authorize]
+       
         public ActionResult EditComment(int Id)
         {
             Comment comment = db.Comments.FirstOrDefault(p => p.Id == Id);
@@ -260,6 +280,7 @@ namespace CBLSummerPortfolio07132016.Controllers
         }
         //POST: Edit Comment
         [HttpPost]
+        
         [ValidateAntiForgeryToken]
         [Authorize]
         public ActionResult EditComment([Bind(Include = "Id,Updated,BodyText,BlogPostId")] Comment comment)
@@ -286,6 +307,7 @@ namespace CBLSummerPortfolio07132016.Controllers
 
         // GET: Blog/DeleteComment/5
         [Authorize]
+        
         public ActionResult DeleteComment(int? id)
         {
             if (id == null)
@@ -304,6 +326,7 @@ namespace CBLSummerPortfolio07132016.Controllers
 
         // POST: Blog/DeleteCommentConfirmed/5
         [Authorize]
+        
         [HttpPost, ActionName("DeleteComment")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteCommentConfirmed(int id)
@@ -314,5 +337,6 @@ namespace CBLSummerPortfolio07132016.Controllers
             var post = db.Posts.Find(comment.BlogPostId);
             return RedirectToAction("Details", new { slug = post.Slug });
         }
+
     }
 }

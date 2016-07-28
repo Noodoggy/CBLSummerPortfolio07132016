@@ -1,5 +1,5 @@
 ﻿
-@using X.PagedList
+@*@using X.PagedList*@
 
 
 
@@ -7,8 +7,8 @@
 
 
 
-@model PagedList<CBLSummerPortfolio07132016.Models.BlogPost>
-<div class="row">
+@*@model PagedList<CBLSummerPortfolio07132016.Models.BlogPost>*@
+@*<div class="row" id="adminpageview">
     <div class="col-sm-push-3">
 
     </div>
@@ -58,9 +58,99 @@
         @Html.(Model, page => Url.Action("BlogsList", new { page }))
     </p>
 
-    @if (User.IsInRole("Admin"))
-    {
-        @Html.ActionLink("Administrator Blog View", "Index")
-    }
+
+</div>*@
+
+@model IEnumerable<CBLSummerPortfolio07132016.Models.BlogPost>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        @{
+            var profile = "profile";
+            var styletype = "big-padding";
+            var aboutortwitter = "harddrive";
+            var rightorleft = "scrollimation fade-right";
+            var textcenter = "";
+            var counter = 0;
+
+            foreach (var item in Model)
+            {
+                if (counter % 2 != 0)
+                {
+                    aboutortwitter = "twitter-feeds";
+                    rightorleft = "scrollimation fade-left";
+                    textcenter = "";
+                    styletype = "bg-main-color";
+                }
+                else
+                {
+                    profile = "profile";
+                    styletype = "big-padding";
+                    aboutortwitter = "harddrive";
+                    rightorleft = "scrollimation fade-right";
+                    textcenter = "";
+                }
+                counter++;
+
+
+
+                <section id="@aboutortwitter" class="@styletype @rightorleft">
+                    <div class="container @textcenter ">
+                        <div class="row @profile">
+                            <div class="col-sm-6 col-sm-offset-1" @textcenter>
+                                @{var shortbody = "";
+                                    if (item.BodyText.Length >= 139)
+                                    {
+                                        shortbody = item.BodyText.Substring(0, 136) + "...";
+                                    }
+                                    else
+                                    {
+                                        shortbody = item.BodyText;
+                                    }
+                                    <h1>@Html.DisplayFor(modelItem => item.Title)</h1>
+                                                <p>
+                                                    @if (item.MediaUrl != null)
+                                                    {
+                                                        <img class="img-responsive" src="@Url.Content(item.MediaUrl)" alt="" />
+                                                    }
+                                                </p>
+                                                <h3 id="right">
+                                                    <a style="font-size: 24px" href="../Blog/Details?slug=@Html.DisplayFor(modelItem => item.Slug)">
+                                                        @Html.Raw(shortbody)
+                                                        <span style="font-size: 12px;">@item.Comments.Count</span>
+                                                        <span style="font-size: 12px;"> comments</span>
+                                                    </a>
+                                                </h3>
+                                                
+                                                <h5><span class="glyphicon glyphicon-time"></span>@Html.DisplayFor(modelItem => item.Created.LocalDateTime)</h5>
+
+                                    if (item.Updated != null)
+                                    {
+                                        <h5>
+                                            Updated at <span class="glyphicon glyphicon-time"></span>@Html.DisplayFor(modelItem => item.Updated)
+
+                                        </h5>
+                                    }
+                                    <p>
+                                        @if (@User.IsInRole("Admin"))
+                                        {
+                                        <p>@Html.ActionLink("Edit", "Edit", new { slug = item.Slug })</p>
+                                        <p>@Html.ActionLink("Delete", "Delete", new { id = item.Id })</p>
+                                        <p>@Html.ActionLink("Back to List", "Index")</p>
+                                        }
+                                        </p>
+
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                                    }
+        }
+
+    </div>
 
 </div>

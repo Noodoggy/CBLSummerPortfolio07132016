@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 
 namespace CBLSummerPortfolio07132016.Models
@@ -25,4 +26,5 @@ namespace CBLSummerPortfolio07132016.Models
 
         public virtual ICollection<Comment> Comments { get; set; }
     }
+
 }

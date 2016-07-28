@@ -13,11 +13,11 @@ namespace CBLSummerPortfolio07132016
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-           //routes.MapRoute(
-           //     name: "Details",
-           //     url: "Blog/{slug}",
-           //     defaults: new { controller = "BlogPosts", action = "Details", slug = UrlParameter.Optional }
-           // );
+            routes.MapRoute(
+                 name: "Details",
+                 url: "Blog/Details/{slug}",
+                 defaults: new { controller = "Blog", action = "Details", slug = UrlParameter.Optional }
+             );
 
 
             routes.MapRoute(

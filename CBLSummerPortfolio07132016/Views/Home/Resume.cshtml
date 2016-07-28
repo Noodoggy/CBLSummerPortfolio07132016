@@ -7,8 +7,46 @@ TESTIMONIALS
 
     <div class="container">
 
-        <h1 class="section-title">Skills/Resume<span class="main-color">3</span></h1>
+        <h1 class="section-title">Resume<span class="main-color">3</span></h1>
         <p class="subtitle">See what people say about my work</p>
+
+
+    <div class="row">
+        <!-- Button trigger modal -->
+        <div class="row" style="margin-bottom:75px">
+            <div class="col-xs-5">
+            </div>
+            <div class="col-xs-5">
+                <button class="btn btn-dc btn-main-color" data-toggle="modal" data-target="#myModal">
+                    View Resume
+                </button>
+            </div>
+
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Resume</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <iframe src="~/assets/Benton-Landry-Resume.pdf#zoom=100"
+                                    style="width:100%; height:800px;" id="iframe2" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
         <div class="row">
 
@@ -110,6 +148,11 @@ TESTIMONIALS
 
 </section>
 
+
+
+
+
+<!--wikipedia links for different parts of learning-->
 <div class="white-bg">
 
     <div class="container">
@@ -145,36 +188,3 @@ TESTIMONIALS
 
 </div>
 
-
-<!-- Button trigger modal -->
-<div class="row">
-    <div class="col-xs-5">
-    </div>
-    <div class="col-xs-5">
-        <button class="btn btn-dc btn-main-color" data-toggle="modal" data-target="#myModal">
-            View Resume
-        </button>
-    </div>
-    
-</div>
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">Resume</h4>
-            </div>
-            <div class="modal-body">
-                <div style="text-align: center;">
-                    <iframe src="https://docs.google.com/document/d/10D4xaj8JGEVfZ0AJTLKqzxry7FS9dpVCaRFihlPsXcA/pub"
-                            style="width:800px; height:800px;" frameborder="0"></iframe>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                
-            </div>
-        </div>
-    </div>
-</div>

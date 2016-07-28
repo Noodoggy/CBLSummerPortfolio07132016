@@ -4,7 +4,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
+using Owin.Security.Providers.LinkedIn;
 using Owin;
+using Microsoft.Owin.Security.MicrosoftAccount;
 using CBLSummerPortfolio07132016.Models;
 
 namespace CBLSummerPortfolio07132016
@@ -47,24 +49,30 @@ namespace CBLSummerPortfolio07132016
             // This is similar to the RememberMe option when you log in.
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
-            // Uncomment the following lines to enable logging in with third party login providers
+            ////Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            /*Facebook app needs to be made published in order for other people to sign in*/
+            app.UseFacebookAuthentication(
+               appId: "539616076226277",
+               appSecret: "e6f625e56360413a4d20b9dbf230a91e");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "1048796132137-9f7u27g1h6s5a3vaotju39tdrud3qh07.apps.googleusercontent.com",
+                ClientSecret = "wp5PknO2-X38eOV_VJ3UFS2m"
+            });
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseLinkedInAuthentication(
+               "78wkpwegb43umm",
+               "qcmjvR9RepnTuiH");
+
+            /*The following needs to be updated to published site in order to function; local hosting is not supported*/
+            app.UseTwitterAuthentication(
+                consumerKey: "Lbvb2ad10M3y2Teu4ViM6Rhvj",
+                consumerSecret: "sAwtVIpMCKIqcl5TREnNaMWurlQWswFkGECAnKx1k1zJCCSTCy");
         }
     }
 }

@@ -6,16 +6,16 @@
 @*this is a trends sidebar that is kept stationary on screen like a menu
     and will be populated with categories, latest, popular, sign-in, and
     maybe outside links?*@
-<section id="testimonials" @*class="big-padding"*@>
+@*<section id="testimonials" @*class="big-padding"*@>
 
-    <div class="container">
-
-        <h1 id="blogTitle" class="section-title big-padding">Blog<span class="main-color"></span>2</h1>
+    @*<div class="container">
+   
+        <h1 id="blogTitle" class="section-title">Blog<span class="main-color"></span>2</h1>
 
         <div class="row">
             </div>
         </div>
-    </section>
+    </section>*@
             @*<div class="col-sm-2 nav navbar-nav" id="trends">
                 <ul>
                     <li>This</li>
@@ -79,9 +79,11 @@
                                     <div class="row @profile">
                                         <div class="col-sm-6 col-sm-offset-1" @textcenter>
                                             @{var shortbody = "";
+
                                                 if (item.BodyText.Length >= 139)
                                                 {
                                                     shortbody = item.BodyText.Substring(0, 136) + "...";
+
                                                 }
                                                 else
                                                 {
@@ -94,26 +96,30 @@
                                                         <img class="img-responsive" src="@Url.Content(item.MediaUrl)" alt="" />
                                                     }
                                                 </p>
-                                                <h3>@Html.Raw(shortbody)</h3>
-                                                <a href="../Blog/@Html.DisplayFor(modelItem => item.Slug)#comments">
+                                                <h3 id="right">
+                                                    <a style="font-size: 24px" href="@Url.Action("Details", new { slug = item.Slug })">
+                                                        @Html.Raw(shortbody)
+
+
                                                     <span style="font-size: 12px;">@item.Comments.Count</span>
                                                     <span style="font-size: 12px;"> comments</span>
                                                 </a>
-                                                <h3 id="right">@Html.ActionLink("Read the blog...", "Details", new { slug = item.Slug })</h3>
+                                                </h3>
                                                 <h5><span class="glyphicon glyphicon-time"></span>@Html.DisplayFor(modelItem => item.Created.LocalDateTime)</h5>
 
                                                 if (item.Updated != null)
                                                 {
-                                                    <h5>
-                                                        Updated at <span class="glyphicon glyphicon-time"></span>@Html.DisplayFor(modelItem => item.Updated)
+                                                <h5>
+                                                    Updated at <span class="glyphicon glyphicon-time"></span>@Html.DisplayFor(modelItem => item.Updated)
 
-                                                    </h5>
+                                                </h5>
                                                 }
 
-                                            }
+                                                }
 
-                                        </div>
+</div>
                                     </div>
+
                                 </div>
                             </section>
                                                 }

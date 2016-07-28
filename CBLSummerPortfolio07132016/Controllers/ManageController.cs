@@ -10,6 +10,7 @@ using CBLSummerPortfolio07132016.Models;
 
 namespace CBLSummerPortfolio07132016.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class ManageController : Controller
     {
