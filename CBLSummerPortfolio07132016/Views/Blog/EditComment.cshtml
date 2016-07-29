@@ -2,26 +2,32 @@
 @{
     ViewBag.Title = "Edit Comment";
 }
-<div id="editcomment">
+<div id="editcomment" class="big-padding">
     <h2>Edit Comment</h2>
 
 
-    @using (Html.BeginForm("EditComment", "BlogPosts", FormMethod.Post))
+    @using (Html.BeginForm("EditComment", "Blog", FormMethod.Post, new { enctype = "Multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
-
-        <input type="hidden" name="PostId" value="@Model.BlogPostId" />
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Created)
+        @Html.HiddenFor(model => model.Updated)
+        @Html.HiddenFor(model => model.UpdateReason)
+        @Html.HiddenFor(model => model.AuthorId)
+        @Html.HiddenFor(model => model.BlogPostId)
+        @Html.HiddenFor(model => model.UpdateReason)
+        @*<input type="hidden" name="BlogPostId" value="@Model.BlogPostId" />*@
         <div class="row">
             <div class="row">
                 <div class="form-group">
                     <label class="sr-only" for="Comment">Comments:</label>
                     @Html.EditorFor(model => model.BodyText, new { htmlAttributes = new { @class = "form-control" } })
-                    <!--<input type="text" id="comment" class="form-control" name="Body" placeholder="Leave a comment here*" required />-->
+                    
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-sm" id="submit-button">
+        <button type="submit" value="Save" class="btn btn-primary btn-sm" id="submit-button">
             <i class="fade loading-icon"></i> <span>Save</span>
         </button>
 

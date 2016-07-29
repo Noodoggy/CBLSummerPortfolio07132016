@@ -114,7 +114,7 @@
 
 
         <a name="comments"></a>
-        @foreach (var com in Model.Comments)
+        @foreach (var com in Model.Comments.OrderByDescending(p => p.Created))
         {
 
            
@@ -143,7 +143,7 @@
 
                                                 @if (User.Identity.Name == com.Author.Email)
                                                 {  
-                                                    @Html.ActionLink("       Edit  ", "EditComment", new { Id = com.Id })
+                                                    @Html.ActionLink("       Edit  ", "EditComment", new { Id = com.Id})
                                                 }
 
                                                 @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || (User.Identity.Name == com.Author.Email))
@@ -155,12 +155,13 @@
 
                                         </h4>
                                     </div>
-                                    <h6 class="text-muted time">1 minute ago</h6>
+                                    
                                 </div>
                             </div>
                             <div class="post-description">
                                 <h3>@com.BodyText</h3>
                                 <br />
+                                
                                 @*<div class="stats">
                                     <a href="#" class="btn btn-default stat-item">
                                         <i class="fa fa-thumbs-up icon"></i>2
@@ -181,42 +182,4 @@
 
         </div>
     </div>
-            @*<div id="comment-whole">
-                <div class="row" id="comment-body" style="padding: 20px; font-size: large">
-                    <p>@com.BodyText</p>
-                    <br />
-                </div>
-                <div class="row" id="comment-author" style="padding: 10px">
-                    <div class="col-sm-6">
-
-                    </div>
-                    <div class="col-sm-6">
-                        <h4>
-                            @Html.Raw(com.Author.Email)
-                            <small>
-
-                                @if (com.Updated == null)
-                                {
-
-                                    @com.Created.LocalDateTime;
-                                }
-
-                                else
-                                {
-                                    @com.Updated;
-                                }
-                                @if (User.Identity.Name == com.Author.Email)
-                                {  @Html.ActionLink("    Edit  ", "EditComment", new { Id = com.Id })  }
-                                @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || (User.Identity.Name == com.Author.Email))
-                                {
-                                    @Html.ActionLink("Delete", "DeleteComment", new { Id = com.Id });
-                                }
-
-                            </small>
-
-                        </h4>
-                    </div>
-                </div>
-            </div>
-        }*@
-
+         

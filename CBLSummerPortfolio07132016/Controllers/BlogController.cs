@@ -61,14 +61,44 @@ namespace CBLSummerPortfolio07132016.Controllers
             }
             return View(blogPost);
         }
+
+        //Latest Post Quick Link
         public ActionResult Latest()
 
         {
             var qposts = db.Posts.AsQueryable();//set as queryable
-            var posts = qposts.Where(p => p.Published).OrderByDescending(p => p.Created);//order by date
-            var slug = posts.FirstOrDefault();//use first one
-            return RedirectToAction("Details", new { slug = slug.Slug});
+            var posts = qposts.Where(p => p.Published).OrderByDescending(p => p.Created);//order posts by date
+            var slug = posts.FirstOrDefault();//use first post
+            return RedirectToAction("Details", new { slug = slug.Slug });//set slug to post slug and return
         }
+
+
+        //Latest Post Quick Link
+        public ActionResult LatestComment()
+
+        {
+            var qcomments = db.Comments.AsQueryable();//set as queryable
+            var comment = qcomments.OrderByDescending(p => p.Created);//order comments by date
+            var blogId = comment.FirstOrDefault().BlogPostId;//use first comment
+            BlogPost blogPost = db.Posts.FirstOrDefault(p => p.Id == blogId);//get slug by id of post
+
+            return RedirectToAction("Details", new { slug = blogPost.Slug});//set slug to post slug and return
+        }
+
+        //Most Popular Post
+        public ActionResult MostPopular()
+
+        {
+            var qposts = db.Posts.AsQueryable();//set posts as queryable
+            var qcomments = db.Comments.AsQueryable();//set comments as queryable
+            var numcomment = qposts.OrderByDescending(p => p.Comments.Count);//order posts by number of comments
+            var slug = numcomment.FirstOrDefault();//use first blog
+
+            return RedirectToAction("Details", new { slug = slug.Slug });//set slug to post slug and return
+        }
+
+
+
         // GET: Blog/Create
 
         [Authorize(Roles = "Admin")]
@@ -141,7 +171,7 @@ namespace CBLSummerPortfolio07132016.Controllers
         
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit([Bind(Include = "Id,Created,Updated,Title,Slug,BodyText,MediaUrl,Published")] BlogPost blogPost, HttpPostedFileBase image)
+        public ActionResult Edit([Bind(Include = "Id,Updated,Title,Slug,BodyText,MediaUrl,Published")] BlogPost blogPost, HttpPostedFileBase image)
         {
 
             if (ModelState.IsValid)
@@ -249,6 +279,7 @@ namespace CBLSummerPortfolio07132016.Controllers
 
         //// POST: Blog/Comment
         [HttpPost]
+        [Authorize]
         
         public ActionResult Comment([Bind(Include = "Id,BlogPostId, BodyText")] Comment comment)
         {
@@ -266,38 +297,63 @@ namespace CBLSummerPortfolio07132016.Controllers
 
         }
 
+
+
         // GET: Blog/Edit Comment
         [Authorize]
        
-        public ActionResult EditComment(int Id)
+        public ActionResult EditComment(int id)
         {
-            Comment comment = db.Comments.FirstOrDefault(p => p.Id == Id);
-            if (comment == null)
+            
+            var com = db.Comments.FirstOrDefault(c => c.Id == id);
+            var usercheck = User.Identity.GetUserId();//get user id
+            if (usercheck != com.AuthorId)//check user id against comment author
             {
                 return HttpNotFound();
             }
-            return View(comment);
+            if (com == null)
+            {
+                return HttpNotFound();
+            }
+            
+
+            return View(com);
         }
+
+
+
         //POST: Edit Comment
         [HttpPost]
-        
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult EditComment([Bind(Include = "Id,Updated,BodyText,BlogPostId")] Comment comment)
+        public ActionResult EditComment([Bind(Include = "Id,Created,Updated,BodyText,BlogPostId,AuthorId")] Comment comment)
         {
+             
+            //var usercheck = User.Identity.GetUserId();//get user id
+            //if (usercheck != comment.AuthorId)//check user id against comment author
+            //{
+            //    return HttpNotFound();
+            //}
             if (ModelState.IsValid)
             {
+                var Id = comment.Id;
+                
                 comment.Updated = DateTimeOffset.Now;
+               
                 db.Comments.Attach(comment);
 
                 db.Entry(comment).Property("BodyText").IsModified = true;
                 db.Entry(comment).Property("Updated").IsModified = true;
-
+                //db.Entry(comment).Property("Id").IsModified = true;
+                //db.Entry(comment).Property("Created").IsModified = true;
+                //db.Entry(comment).Property("BlogPostId").IsModified = true;
+                //db.Entry(comment).Property("AuthorId").IsModified = true;
                 //db.Entry(comment).State = EntityState.Modified; // To change the entire record
 
                 db.SaveChanges();
 
             }
+            
             var post = db.Posts.Find(comment.BlogPostId);
             return RedirectToAction("Details", new { slug = post.Slug });
         }
