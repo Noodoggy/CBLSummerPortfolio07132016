@@ -3,14 +3,17 @@
 @{
     ViewBag.Title = "Delete";
 }
-<div id="delete">
-    <h2>Delete</h2>
-
+<div class="row" id="delete" style="min-height:850px">
+    <div class="col-xs-offset-2 col-xs-6" style="margin-top:100px">
+        <h2>Delete</h2>
+    
     <h3>Are you sure you want to delete this?</h3>
-    <div>
-        <h4>BlogPost</h4>
-        <hr />
-        <dl class="dl-horizontal">
+        <div>
+        </div>
+        
+        
+        <div class="row">
+        <dl class="dl-horizontal col-xs-offset-2 col-xs-6" style="background-color: whitesmoke; border-radius: 7px">
             <dt>
                 @Html.DisplayNameFor(model => model.Created)
             </dt>
@@ -68,15 +71,18 @@
             </dd>
 
         </dl>
+        </div>
+        <div class="row col-xs-offset-5">
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
-            </div>
-        }
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-default" /> |
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            }
+        </div>
     </div>
-</div>
+</div><br />

@@ -4,14 +4,14 @@
     ViewBag.Title = "Create";
 }
 
-<div class="big-padding" id="create">
-    <div class="col-xs-offset-1 col-xs-1-pull">
+<div class ="row" style="background-color:#00CCCB; min-height:850px">
+    <div class="col-xs-offset-2" style="margin-top:100px">
         <h2>Create</h2>
     </div>
-</div>
+
 <div class="row">
 
-    <div class="col-xs-6 col-xs-offset-1" id="create-blog">
+    <div class="col-xs-6 col-xs-offset-2" id="create-blog" style="border-radius:7px">
         @using (Html.BeginForm("Create", "Blog", FormMethod.Post, new { enctype = "Multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
@@ -83,16 +83,13 @@
         </div>
     </div>
 </div>
+</div>
 @section scripts{
-    @*<script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
-    <script src="~/Scripts/tinymce/tinymce.min.js"></script>*@
+
 <script>tinymce.init({ selector:'textarea' });</script>
-    <script type="text/javascript">
-        $(function () {
-        $('#Ed').tinymce({});
-        });
 
 
-    </script>
+
+
 }
 

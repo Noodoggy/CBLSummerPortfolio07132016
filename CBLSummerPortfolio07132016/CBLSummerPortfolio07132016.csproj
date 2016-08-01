@@ -530,6 +530,7 @@
     <Content Include="assets\css\prettify.css" />
     <Content Include="assets\js\prettify.js" />
     <Content Include="assets\js\scripts.js" />
+    <Content Include="assets\js\scripts\partials.js" />
     <Content Include="assets\js\twitterFetcher_min.js" />
     <Content Include="assets\js\waypoints.js" />
     <Content Include="assets\js\waypoints.min.js" />

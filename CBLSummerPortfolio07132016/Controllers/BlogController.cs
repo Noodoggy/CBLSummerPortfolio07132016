@@ -171,7 +171,7 @@ namespace CBLSummerPortfolio07132016.Controllers
         
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit([Bind(Include = "Id,Updated,Title,Slug,BodyText,MediaUrl,Published")] BlogPost blogPost, HttpPostedFileBase image)
+        public ActionResult Edit(/*[Bind(Include = "Id,Updated,Title,Slug,BodyText,MediaUrl,Published")]*/ BlogPost blogPost, HttpPostedFileBase image)
         {
 
             if (ModelState.IsValid)
@@ -224,6 +224,7 @@ namespace CBLSummerPortfolio07132016.Controllers
                 //db.Entry(blogPost).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("AdminBlogIndex");
+
             }
             return View(blogPost);
         }
@@ -326,7 +327,7 @@ namespace CBLSummerPortfolio07132016.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult EditComment([Bind(Include = "Id,Created,Updated,BodyText,BlogPostId,AuthorId")] Comment comment)
+        public ActionResult EditComment([Bind(Include = "Id,Created,Updated,BodyText,BlogPostId,AuthorId,UpdateReason")] Comment comment)
         {
              
             //var usercheck = User.Identity.GetUserId();//get user id
@@ -344,6 +345,7 @@ namespace CBLSummerPortfolio07132016.Controllers
 
                 db.Entry(comment).Property("BodyText").IsModified = true;
                 db.Entry(comment).Property("Updated").IsModified = true;
+                db.Entry(comment).Property("UpdateReason").IsModified = true;
                 //db.Entry(comment).Property("Id").IsModified = true;
                 //db.Entry(comment).Property("Created").IsModified = true;
                 //db.Entry(comment).Property("BlogPostId").IsModified = true;

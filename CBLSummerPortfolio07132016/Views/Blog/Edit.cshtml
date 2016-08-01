@@ -4,7 +4,9 @@
     ViewBag.Title = "Edit";
 }
 <div class="row" id="edit">
-    <h2>Edit</h2>
+    <div class="col-xs-offset-1" style="margin-top:100px">
+        <h2>Edit</h2>
+    </div>
     <div class="col-xs-6 col-xs-offset-1">
         @using (Html.BeginForm("Edit", "Blog", FormMethod.Post, new { enctype = "Multipart/form-data" }))
         {

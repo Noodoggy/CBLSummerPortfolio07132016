@@ -3,44 +3,6 @@
 @{
     ViewBag.Title = "Blog";
 }
-@*this is a trends sidebar that is kept stationary on screen like a menu
-    and will be populated with categories, latest, popular, sign-in, and
-    maybe outside links?*@
-@*<section id="testimonials" @*class="big-padding"*@>
-
-    @*<div class="container">
-   
-        <h1 id="blogTitle" class="section-title">Blog<span class="main-color"></span>2</h1>
-
-        <div class="row">
-            </div>
-        </div>
-    </section>*@
-            @*<div class="col-sm-2 nav navbar-nav" id="trends">
-                <ul>
-                    <li>This</li>
-                    <li>is</li>
-                    <li>a</li>
-                    <li>test</li>
-                    <li>of</li>
-                    <li>a</li>
-                    <li>sidebar</li>
-                    <li>on</li>
-                    <li>page</li>
-                </ul>
-
-                <p class="text-center">
-                    @Html.ActionLink("Create New", "Create")
-
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                        @Html.ActionLink("Administrator", "AdminBlogIndex")
-                    }
-
-                    @Html.Partial("_LoginPartial")
-
-            </div>*@
 
 
             <div class="row">
@@ -97,13 +59,10 @@
                                                     }
                                                 </p>
                                                 <h3 id="right">
-                                                    <a style="font-size: 24px" href="@Url.Action("Details", new { slug = item.Slug })">
-                                                        @Html.Raw(shortbody)
-
-
-                                                    <span style="font-size: 12px;">@item.Comments.Count</span>
+                                                    <a style="font-size: 30px;" href="@Url.Action("Details", new { slug = item.Slug })">
+                                                        @Html.Raw(shortbody)<span style="font-size: 12px;">@item.Comments.Count</span>
                                                     <span style="font-size: 12px;"> comments</span>
-                                                </a>
+                                                    </a>
                                                 </h3>
                                                 <h5><span class="glyphicon glyphicon-time"></span>@Html.DisplayFor(modelItem => item.Created.LocalDateTime)</h5>
 

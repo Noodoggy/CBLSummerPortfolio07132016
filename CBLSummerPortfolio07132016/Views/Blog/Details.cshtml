@@ -4,83 +4,86 @@
     ViewBag.Title = "Details";
 }
 <div id="details" class="row">
-    <h2>Details</h2>
 
     <div class="col-xs-offset-1 col-xs-6">
-    <dl class="dl-horizontal">
-        <div>
+        <dl class="dl-horizontal">
+            <div>
 
 
-            <div class="row">
+                <div class="row" style="margin-top: 100px">
+                    <!--<dt>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </dt>-->
+
+                    <dd>
+                        <h2>@Html.DisplayFor(model => model.Title)</h2>
+                    </dd>
+                    @*<dt>
+                            @Html.DisplayNameFor(model => model.Created)
+                        </dt>*@
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Created.LocalDateTime)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Updated)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Updated)
+                    </dd>
+                </div>
+
+                @if (Model.MediaUrl != null)
+            {
+                    <img class="img-responsive" src="@Url.Content(Model.MediaUrl)" alt="" />
+                }
+                <!--Old img source display
+                <img src="@Html.DisplayFor(model => model.MediaUrl)" />
+                -->
                 <!--<dt>
-                    @Html.DisplayNameFor(model => model.Title)
+                    @Html.DisplayNameFor(model => model.BodyText)
                 </dt>-->
 
                 <dd>
-                    <h2>@Html.DisplayFor(model => model.Title)</h2>
+                    <h3>
+                        @Html.Raw(Model.BodyText)
+                    </h3>
                 </dd>
-                @*<dt>
-                    @Html.DisplayNameFor(model => model.Created)
-                </dt>*@
+
+                <!--<dt>
+                    @Html.DisplayNameFor(model => model.MediaUrl)
+                </dt>-->
+                <!--<dt>
+                   @*@Html.DisplayNameFor(model => model.Published)*@
+                </dt>-->
 
                 <dd>
-                    @Html.DisplayFor(model => model.Created.LocalDateTime)
+                    @*@Html.DisplayFor(model => model.Published)*@
                 </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Updated)
-                </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Updated)
-                </dd>
+
+
             </div>
-
-            @if (Model.MediaUrl != null)
+        </dl>
+        <p>
+            @if (@User.IsInRole("Admin"))
             {
-                <img class="img-responsive" src="@Url.Content(Model.MediaUrl)" alt="" />
-            }
-            <!--Old img source display
-            <img src="@Html.DisplayFor(model => model.MediaUrl)" />
-            -->
-            <!--<dt>
-                @Html.DisplayNameFor(model => model.BodyText)
-            </dt>-->
-
-            <dd>
-                <h3>
-                    @Html.Raw(Model.BodyText)
-                </h3>
-            </dd>
-
-            <!--<dt>
-                @Html.DisplayNameFor(model => model.MediaUrl)
-            </dt>-->
-            <!--<dt>
-               @*@Html.DisplayNameFor(model => model.Published)*@
-            </dt>-->
-
-            <dd>
-                @*@Html.DisplayFor(model => model.Published)*@
-            </dd>
-
-
-
-
-        </div>
-    </dl>
-    <p>
-        @if (@User.IsInRole("Admin"))
-            {
-        <p>@Html.ActionLink("Edit", "Edit", new { slug = Model.Slug })</p>
+            <p>@Html.ActionLink("Edit", "Edit", new { slug = Model.Slug })</p>
             <p>@Html.ActionLink("Delete", "Delete", new { id = Model.Id })</p>
-            <p>@Html.ActionLink("Back to List", "Index")</p>
-        }
-        else
-        {
-            @Html.ActionLink("Back to List   ", "BlogsList")
-        }
+            <p>@Html.ActionLink("Back to List", "AdminBlogIndex")</p>
+            }
+            else
+            {
+                @Html.ActionLink("Back to List   ", "Index")
+            }
 
+
+
+            <p>
+                
         <h3>
             Comments
         </h3>
@@ -90,17 +93,17 @@
                 {
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="BlogPostId" value="@Model.Id" />
-                    <div class="col-sm-8">
-                           <div class="row">
-                               <div class="form-group panel panel-white post panel-shadow">
-                                        <label class="sr-only" for="Comment">Comments:</label>
-                                           <input type="text" id="comment" class="form-control" name="BodyText" placeholder="Leave a comment here..." required />
-                                </div>
-                           </div>
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="form-group panel panel-white post panel-shadow">
+                            <label class="sr-only" for="Comment">Comments:</label>
+                            <input type="text" id="comment" class="form-control" name="BodyText" placeholder="Leave a comment here..." required />
                         </div>
-                    <button type="submit" class="btn btn-primary btn-sm" id="submit-button">
-                        <i class="fade loading-icon"></i> <span>Submit Comment</span>
-                    </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm" id="submit-button">
+                    <i class="fade loading-icon"></i> <span>Submit Comment</span>
+                </button>
             }
         }
         else
@@ -117,52 +120,61 @@
         @foreach (var com in Model.Comments.OrderByDescending(p => p.Created))
         {
 
-           
-                <div class="row">
-                    <div class="col-sm-10">
-                        <div class="panel panel-white post panel-shadow">
-                            <div class="post-heading">
-                                <div class="pull-left image">
-                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
-                                </div>
-                                <div class="pull-left meta">
-                                    <div class="title h5">
-                                        <h4>
-                                            @Html.Raw(com.Author.Email)
-                                            <small>
 
-                                                @if (com.Updated == null)
-                                                {
-
-                                                    @com.Created.LocalDateTime;
-                                                }
-                                                else
-                                                {
-                                                    @com.Updated;
-                                                }
-
-                                                @if (User.Identity.Name == com.Author.Email)
-                                                {  
-                                                    @Html.ActionLink("       Edit  ", "EditComment", new { Id = com.Id})
-                                                }
-
-                                                @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || (User.Identity.Name == com.Author.Email))
-                                                {
-                                                    @Html.ActionLink("     Delete", "DeleteComment", new { Id = com.Id })
-                                                }
-
-                                            </small>
-
-                                        </h4>
-                                    </div>
-                                    
-                                </div>
+            <div class="row">
+                <div class="col-sm-10">
+                    <div class="panel panel-white post panel-shadow">
+                        <div class="post-heading">
+                            <div class="pull-left image">
+                                <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
                             </div>
-                            <div class="post-description">
-                                <h3>@com.BodyText</h3>
-                                <br />
-                                
-                                @*<div class="stats">
+                            <div class="pull-left meta">
+                                <div class="title h5">
+                                    <h4>
+                                        @Html.Raw(com.Author.Email)
+                                        <small>
+
+                                            @if (com.Updated == null)
+                                            {
+
+                                                @com.Created.LocalDateTime;
+                                            }
+                                            else
+                                            {
+                                                <p><span>Edited on @com.Updated</span>
+                                                @if (@com.UpdateReason != null)
+                                                {
+                                                <span> for this reason: </span>@com.UpdateReason;
+                                                }
+                                                </p>
+                                                
+                                            }
+
+                                            @if (User.Identity.Name == com.Author.Email)
+                                            {
+                                                @Html.ActionLink("       Edit  ", "EditComment", new { Id = com.Id })
+                                            }
+
+                                            @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || (User.Identity.Name == com.Author.Email))
+                                            {
+                                                @Html.ActionLink("     Delete", "DeleteComment", new { Id = com.Id })
+                                            }
+
+
+                                        </small>
+
+
+                                    </h4>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="post-description">
+                            <h3>@com.BodyText</h3>
+                            <br />
+
+                            @*<div class="stats">
                                     <a href="#" class="btn btn-default stat-item">
                                         <i class="fa fa-thumbs-up icon"></i>2
                                     </a>
@@ -170,16 +182,19 @@
                                         <i class="fa fa-thumbs-down icon"></i>12
                                     </a>
                                 </div>*@
-                            </div>
                         </div>
-                        
                     </div>
-                    
+
                 </div>
-           
+
+            </div>
+
 
         }
 
-        </div>
     </div>
-         
+
+    </div>
+                    
+
+    @Scripts.Render("~/assets/js/scripts/partials.js");
